@@ -62,7 +62,7 @@ config :logger, level: :info
 # Configure your database
 config :api_focaccia_life, ApiFocacciaLife.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: {:system, "DATABASE_URL"}
+  url: {:system, "DATABASE_URL"},
   pool_size: 10
 
 config :api_focaccia_life, ApiFocacciaLifeWeb.Endpoint,
