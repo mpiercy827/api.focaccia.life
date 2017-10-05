@@ -1,0 +1,8 @@
+version: 2
+services:
+  web:
+    build: .
+    labels:
+      - convox.port.80.protocol=http
+    ports:
+      - 80:4000
