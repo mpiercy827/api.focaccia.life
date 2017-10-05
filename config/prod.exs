@@ -58,7 +58,15 @@ config :logger, level: :info
 #
 #     config :api_focaccia_life, ApiFocacciaLifeWeb.Endpoint, server: true
 #
+#
+# Configure your database
+config :api_focaccia_life, ApiFocacciaLife.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "focaccia",
+  database: "focaccia",
+  hostname: System.get_env("DATABASE_HOST"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  pool_size: 10
 
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
+config :api_focaccia_life, ApiFocacciaLifeWeb.Endpoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")

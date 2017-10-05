@@ -50,8 +50,7 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :api_focaccia_life, ApiFocacciaLife.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "api_focaccia_life_dev",
+  username: "focaccia",
+  database: "focaccia",
   hostname: "localhost",
   pool_size: 10
