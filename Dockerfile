@@ -1,7 +1,6 @@
 FROM elixir:1.5.1
 
 ENV MIX_ENV=prod
-ARG SECRET_KEY_BASE
 
 COPY mix.exs mix.exs
 COPY mix.lock mix.lock
