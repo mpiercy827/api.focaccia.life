@@ -66,4 +66,4 @@ config :api_focaccia_life, ApiFocacciaLife.Repo,
   pool_size: 10
 
 config :api_focaccia_life, ApiFocacciaLifeWeb.Endpoint,
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  secret_key_base: "w2UyAvKhF8aeGoxg0qDtqWhUEzTlojHSIvMp3mhXEZ6aEfPUetyE/BypYcb78g4J"
