@@ -129,4 +129,100 @@ defmodule ApiFocacciaLife.Focaccia do
     end
   end
 
+
+  alias ApiFocacciaLife.Focaccia.Cacc
+
+  @doc """
+  Returns the list of cacces.
+
+  ## Examples
+
+      iex> list_cacces()
+      [%Cacc{}, ...]
+
+  """
+  def list_cacces do
+    Repo.all(from c in Cacc, preload: [:caccee, :caccer])
+  end
+
+  @doc """
+  Gets a single cacc.
+
+  Raises `Ecto.NoResultsError` if the Cacc does not exist.
+
+  ## Examples
+
+      iex> get_cacc!(123)
+      %Cacc{}
+
+      iex> get_cacc!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_cacc!(id), do: Repo.get!(Cacc, id, preload: [:caccee, :caccer])
+
+  @doc """
+  Creates a cacc.
+
+  ## Examples
+
+      iex> create_cacc(%{field: value})
+      {:ok, %Cacc{}}
+
+      iex> create_cacc(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_cacc(attrs \\ %{}) do
+    %Cacc{}
+    |> Cacc.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a cacc.
+
+  ## Examples
+
+      iex> update_cacc(cacc, %{field: new_value})
+      {:ok, %Cacc{}}
+
+      iex> update_cacc(cacc, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_cacc(%Cacc{} = cacc, attrs) do
+    cacc
+    |> Cacc.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Cacc.
+
+  ## Examples
+
+      iex> delete_cacc(cacc)
+      {:ok, %Cacc{}}
+
+      iex> delete_cacc(cacc)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_cacc(%Cacc{} = cacc) do
+    Repo.delete(cacc)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking cacc changes.
+
+  ## Examples
+
+      iex> change_cacc(cacc)
+      %Ecto.Changeset{source: %Cacc{}}
+
+  """
+  def change_cacc(%Cacc{} = cacc) do
+    Cacc.changeset(cacc, %{})
+  end
 end
