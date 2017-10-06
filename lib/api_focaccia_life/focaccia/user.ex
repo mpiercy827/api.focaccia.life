@@ -1,13 +1,16 @@
 defmodule ApiFocacciaLife.Focaccia.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias ApiFocacciaLife.Focaccia.User
+  alias ApiFocacciaLife.Focaccia.{Cacc, User}
 
 
   schema "users" do
     field :email, :string
     field :name, :string
     field :session_token, :string
+
+    has_many :cacces_performed, Cacc, foreign_key: :caccer_id
+    has_many :cacces_received, Cacc, foreign_key: :caccee_id
 
     timestamps()
   end

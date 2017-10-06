@@ -66,4 +66,62 @@ defmodule ApiFocacciaLife.FocacciaTest do
       assert %Ecto.Changeset{} = Focaccia.change_user(user)
     end
   end
+
+  describe "cacces" do
+    alias ApiFocacciaLife.Focaccia.Cacc
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def cacc_fixture(attrs \\ %{}) do
+      {:ok, cacc} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Focaccia.create_cacc()
+
+      cacc
+    end
+
+    test "list_cacces/0 returns all cacces" do
+      cacc = cacc_fixture()
+      assert Focaccia.list_cacces() == [cacc]
+    end
+
+    test "get_cacc!/1 returns the cacc with given id" do
+      cacc = cacc_fixture()
+      assert Focaccia.get_cacc!(cacc.id) == cacc
+    end
+
+    test "create_cacc/1 with valid data creates a cacc" do
+      assert {:ok, %Cacc{} = cacc} = Focaccia.create_cacc(@valid_attrs)
+    end
+
+    test "create_cacc/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Focaccia.create_cacc(@invalid_attrs)
+    end
+
+    test "update_cacc/2 with valid data updates the cacc" do
+      cacc = cacc_fixture()
+      assert {:ok, cacc} = Focaccia.update_cacc(cacc, @update_attrs)
+      assert %Cacc{} = cacc
+    end
+
+    test "update_cacc/2 with invalid data returns error changeset" do
+      cacc = cacc_fixture()
+      assert {:error, %Ecto.Changeset{}} = Focaccia.update_cacc(cacc, @invalid_attrs)
+      assert cacc == Focaccia.get_cacc!(cacc.id)
+    end
+
+    test "delete_cacc/1 deletes the cacc" do
+      cacc = cacc_fixture()
+      assert {:ok, %Cacc{}} = Focaccia.delete_cacc(cacc)
+      assert_raise Ecto.NoResultsError, fn -> Focaccia.get_cacc!(cacc.id) end
+    end
+
+    test "change_cacc/1 returns a cacc changeset" do
+      cacc = cacc_fixture()
+      assert %Ecto.Changeset{} = Focaccia.change_cacc(cacc)
+    end
+  end
 end
