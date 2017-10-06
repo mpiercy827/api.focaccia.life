@@ -20,7 +20,7 @@ defmodule ApiFocacciaLife.Focaccia do
 
   """
   def list_users do
-    Repo.all(User)
+    Repo.all(from u in User, preload: [:cacces_performed, :cacces_received])
   end
 
   @doc """
@@ -37,7 +37,7 @@ defmodule ApiFocacciaLife.Focaccia do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id, preload: [:cacces_performed, :cacces_received])
 
   @doc """
   Creates a user.
