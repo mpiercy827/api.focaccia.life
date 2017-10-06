@@ -6,8 +6,8 @@ defmodule ApiFocacciaLifeWeb.UserView do
     %{data: render_many(users, UserView, "user.json")}
   end
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+  def render("show.json", %{token: jwt}) do
+    %{jwt: jwt}
   end
 
   def render("user.json", %{user: user}) do

@@ -12,6 +12,7 @@ defmodule ApiFocacciaLifeWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
+  plug CORSPlug
   plug ApiFocacciaLifeWeb.Router
 
   @doc """

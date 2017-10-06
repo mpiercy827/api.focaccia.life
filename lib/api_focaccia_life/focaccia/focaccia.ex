@@ -8,6 +8,8 @@ defmodule ApiFocacciaLife.Focaccia do
 
   alias ApiFocacciaLife.Focaccia.User
 
+  @google_url_base "https://www.googleapis.com/oauth2/v3/tokeninfo"
+
   @doc """
   Returns the list of users.
 
@@ -49,10 +51,22 @@ defmodule ApiFocacciaLife.Focaccia do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+  def create_user(token) do
+    body = authenticate_google(token)
+
+    if body do
+      body = Poison.decode!(body)
+
+      attrs = %{
+        email: body["email"],
+        name: body["name"],
+        session_token: body["sub"]
+      }
+
+      %User{}
+      |> User.changeset(attrs)
+      |> Repo.insert()
+    end
   end
 
   @doc """
@@ -101,4 +115,18 @@ defmodule ApiFocacciaLife.Focaccia do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  defp authenticate_google(token) do
+    response = HTTPoison.get("#{@google_url_base}?id_token=#{token}")
+
+    case response do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        body
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.inspect reason
+        nil
+      _ -> nil
+    end
+  end
+
 end
