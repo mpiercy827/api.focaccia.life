@@ -4,6 +4,7 @@ defmodule ApiFocacciaLife.Focaccia do
   """
 
   import Ecto.Query, warn: false
+  import Joken
   alias ApiFocacciaLife.Repo
 
   alias ApiFocacciaLife.Focaccia.User
@@ -173,10 +174,42 @@ defmodule ApiFocacciaLife.Focaccia do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_cacc(attrs \\ %{}) do
-    %Cacc{}
-    |> Cacc.changeset(attrs)
-    |> Repo.insert()
+  def create_cacc(params \\ %{jwt: nil, caccer_id: nil}) do
+    if params.jwt && params.caccer do
+      verified =
+        params.jwt
+        |> token
+        |> with_signer(hs256(System.get_env("JWT_SIGNING_TOKEN")))
+        |> verify
+
+      caccee = verified.claims
+
+      query = from u in User,
+              where: [
+                email: caccee["email"],
+                name: caccee["name"],
+                session_token: caccee["session_token"]
+              ]
+
+      users = Repo.all(query)
+
+      if length(users) == 1 do
+        [caccee] = users
+
+        attrs = %{
+          caccee_id: caccee.id,
+          caccer_id: caccer_id
+        }
+
+        %Cacc{}
+        |> Cacc.changeset(attrs)
+        |> Repo.insert()
+      else
+        {:error, :"401"}
+      end
+    else
+      {:error, :"422"}
+    end
   end
 
   @doc """

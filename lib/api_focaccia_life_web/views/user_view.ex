@@ -11,8 +11,6 @@ defmodule ApiFocacciaLifeWeb.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    IO.inspect user.cacces_performed
-    IO.inspect user.cacces_received
     %{
       id: user.id,
       name: user.name,

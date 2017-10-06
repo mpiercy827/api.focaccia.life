@@ -11,5 +11,6 @@ defmodule ApiFocacciaLifeWeb.Router do
     get "/users", UserController, :index
     post "/users", UserController, :create
     get "/cacces", CaccController, :index
+    post "/cacces", CaccController, :create
   end
 end
