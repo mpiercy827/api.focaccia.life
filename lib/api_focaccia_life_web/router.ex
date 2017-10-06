@@ -8,6 +8,6 @@ defmodule ApiFocacciaLifeWeb.Router do
   scope "/", ApiFocacciaLifeWeb do
     pipe_through :api
 
-    get "/", UserController, :index
+    post "/users", UserController, :create
   end
 end
