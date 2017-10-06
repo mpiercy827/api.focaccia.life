@@ -16,6 +16,7 @@ defmodule ApiFocacciaLife.Focaccia.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email, :session_token])
+    |> unique_constraint(:email)
     |> validate_required([:name, :email, :session_token])
   end
 end
